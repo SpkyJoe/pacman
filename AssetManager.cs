@@ -22,8 +22,10 @@ public class AssetManager
             return found;
         }
         string textureName = ($"assets/{name}.png");
-        Texture texture = textures[textureName];
+        Texture texture = new Texture(textureName);
         textures.Add(textureName, texture);
+        texture = textures[textureName];
+        
         return texture;
     }
 

@@ -7,7 +7,13 @@ public class Scene
     private List<Entity> entities;
     public readonly SceneLoader loader;
     public readonly AssetManager Assets;
-    
+
+    public Scene()
+    {
+        entities = new List<Entity>();
+        loader = new SceneLoader();
+        Assets = new AssetManager();
+    }
     
     public void Spawn(Entity entity)
     {
@@ -18,7 +24,6 @@ public class Scene
     public void UpdateAll(float deltaTime)
     {
         loader.HandleSceneLoad(this);
-        
         for (int i = entities.Count -1; i >= 0; i--)
         {
             Entity entity = entities[i];

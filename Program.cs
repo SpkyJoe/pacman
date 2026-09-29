@@ -11,8 +11,8 @@ namespace Pacman
         static void Main(string[] args)
         {
             Scene scene = new Scene();
-            scene.loader.Load("maze");
-            
+            if (scene.loader != null) scene.loader.Load("maze");
+
             using (var window = new RenderWindow(
                        new VideoMode(828, 900), "Pacman"))
             {
@@ -24,9 +24,10 @@ namespace Pacman
                     window.DispatchEvents();
                     float deltatime = clock.Restart().AsSeconds();
                     deltatime = MathF.Min(deltatime, 0.1f);
-                    //Todo: updates
+                    if (deltatime > 0.1f) deltatime = 0.1f;
+                    scene.UpdateAll(deltatime);
                     window.Clear(new Color(223, 246, 245));
-                    //Todo: Drawing
+                    scene.RenderAll(window);
                     window.Display();
                 }
             }
