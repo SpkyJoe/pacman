@@ -12,11 +12,13 @@ namespace Pacman
         {
             Scene scene = new Scene();
             if (scene.loader != null) scene.loader.Load("maze");
+            
 
             using (var window = new RenderWindow(
                        new VideoMode(828, 900), "Pacman"))
             {
                 window.Closed += (o, e) => window.Close();
+                window.SetView(new View(new FloatRect(-9, -9, 458, 450)));
                 //TODO: initialize
                 Clock clock = new Clock();
                 while (window.IsOpen)

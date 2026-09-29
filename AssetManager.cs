@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using SFML.Graphics;
+using SFML.System;
+using SFML.Window;
+using System.Text;
 
 namespace Pacman;
 
@@ -23,8 +26,7 @@ public class AssetManager
         }
         string textureName = ($"assets/{name}.png");
         Texture texture = new Texture(textureName);
-        textures.Add(textureName, texture);
-        texture = textures[textureName];
+        textures.Add(name, texture);
         
         return texture;
     }
@@ -37,7 +39,7 @@ public class AssetManager
         }
         string fontName = ($"assets/{name}.ttf");
         Font font = fonts[fontName];
-        fonts.Add(fontName, font);
+        fonts.Add(name, font);
         return font;
         
     }
