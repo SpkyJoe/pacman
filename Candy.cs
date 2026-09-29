@@ -14,6 +14,6 @@ public class Candy : Entity
     {
         base.Create(scene);
         sprite.TextureRect = new IntRect(72, 54, 18, 18);
-        sprite.Origin = new Vector2f(9, 9);
+       
     }
 }

@@ -22,7 +22,7 @@ public class Entity
         set => sprite.Position = value;
     }
 
-    public virtual FloatRect Bounds => sprite.GetGlobalBounds();
+    public FloatRect Bounds => sprite.GetGlobalBounds();
 
     public virtual bool Solid  => false;
 

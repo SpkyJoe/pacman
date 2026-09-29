@@ -12,8 +12,8 @@ public class SceneLoader
 
     static Vector2f CalculateTilePosition(int row, int column, Vector2f tileSize)
     {
-        float X = (column - 1) * tileSize.X;
-        float Y = (row -1 ) * tileSize.Y;
+        float X = (column) * tileSize.X;
+        float Y = (row ) * tileSize.Y;
         return new Vector2f(X,Y);
     }
     
