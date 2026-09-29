@@ -1,11 +1,16 @@
 ﻿using SFML.Graphics;
 using SFML.System;
+using System.Linq;
 
-namespace Pacman;
+
+namespace Pacman; 
 
 public sealed class Wall : Entity
 {
-    public Wall() : base("pacman"){}
+    public Wall() : base("pacman")
+    {
+        
+    }
     
     public override bool Solid => true;
 
@@ -15,7 +20,6 @@ public sealed class Wall : Entity
         sprite.TextureRect = new IntRect(54, 54, 18, 18);
     }
 
-  
-    
-    
+    public override void Update(Scene scene, float deltaTime)
+    {}
 }

@@ -26,18 +26,17 @@ public class Actor : Entity
         originalPosition = Position;
         
     }
-    protected bool IsAligned() =>
+    protected bool IsAligned =>
         (int)MathF.Floor(Position.X) % 18 == 0 &&
         (int)MathF.Floor(Position.Y) % 18 == 0;
     
     protected static Vector2f ToVector(int dir)
     {
-        //TODO: if 0: return right, 1 return up and so on.
-        if (dir==0) return new Vector2f(1, 0);
-        if (dir==1) return new Vector2f(0, -1);
-        if (dir==2) return new Vector2f(-1, 0);
-        if (dir == 3) return new Vector2f(0,1);
-        return new Vector2f(0, 0);
+        if (dir==0) return new Vector2f(1, 0); //Höger
+        if (dir==1) return new Vector2f(0, -1); //Upp
+        if (dir==2) return new Vector2f(-1, 0); //Vänster
+        if (dir == 3) return new Vector2f(0,1); //Ner
+        return new Vector2f(0, 0); //Stilla, om nåt går fel.
     }
 
     protected bool IsFree(Scene scene, int dir)
@@ -45,7 +44,7 @@ public class Actor : Entity
         Vector2f at = Position + new Vector2f(9, 9);
         at += 18 * ToVector(dir);
         FloatRect rect = new FloatRect(at.X, at.Y, 1, 1);
-        return !scene.FindIntersects(rect).Any(e => Solid);
+        return !scene.FindIntersects(rect).Any(e => e.Solid);
     }
 
     protected virtual int PickDirection(Scene scene) { return 0; }
@@ -59,7 +58,7 @@ public class Actor : Entity
     public override void Update(Scene scene, float deltaTime)
     {
         base.Update(scene, deltaTime);
-        if (IsAligned())
+        if (IsAligned)
         {
             if (!wasAligned)
             {

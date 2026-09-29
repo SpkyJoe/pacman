@@ -6,11 +6,7 @@ namespace Pacman;
 
 public sealed class Ghost : Actor
 {
-    public Ghost()
-    {
-        
-    }
-
+    
     public override void Create(Scene scene)
  {
   direction = -1;
@@ -26,10 +22,10 @@ public sealed class Ghost : Actor
      List<int> validMoves = new List<int>();
      for (int i = 0; i < 4; i++)
      {
-         if((i+2) % 4 == direction) continue;
+         if((i + 2) % 4 == direction) continue;
          if (IsFree(scene, i)) validMoves.Add(i);
+         
      }
-
      int r = new Random().Next(0, validMoves.Count);
      return validMoves[r];
  }

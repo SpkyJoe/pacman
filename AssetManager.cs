@@ -38,7 +38,7 @@ public class AssetManager
             return found;
         }
         string fontName = ($"assets/{name}.ttf");
-        Font font = fonts[fontName];
+        Font font = new Font(fontName);
         fonts.Add(name, font);
         return font;
         

@@ -23,8 +23,8 @@ public class SceneLoader
         loaders = new Dictionary<char, Func<Entity>>()
         {
             { '#', () => new Wall() },
-            { '.', () => new Coin() },
             {'g', () => new Ghost() },
+            { '.', () => new Coin() },
             {'p', () => new Pacman() },
             {'c', () => new Candy()}
         };
@@ -36,7 +36,7 @@ public class SceneLoader
         
         if (nextScene == "") return;
         scene.Clear();
-        int rad = 0;
+        int rad = -1;
         foreach (var line in File.ReadLines(file, Encoding.UTF8))
         {
             rad++;
@@ -51,11 +51,14 @@ public class SceneLoader
                     Vector2f position = CalculateTilePosition(rad, i, new Vector2f(18, 18));
                     created.Position = position;
                     scene.Spawn(created);
+                    
                 }
             }
         }
         currentScene = nextScene;
         nextScene = "";
+        scene.Spawn(new GUI());
+        
     }
     
     public void Load(string scene) => nextScene = scene;

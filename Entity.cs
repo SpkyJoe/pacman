@@ -46,7 +46,7 @@ public class Entity
         
     }
 
-    public void Render(RenderTarget target)
+    public virtual void Render(RenderTarget target)
     {
         target.Draw(sprite);
     }
