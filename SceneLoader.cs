@@ -47,9 +47,8 @@ public class SceneLoader
                 {
                     char charObj = eachLine[i];
                     if (charObj == '|' || charObj == ' ') continue;
-                    
                     Create(charObj, out Entity created);
-                    Vector2f position = CalculateTilePosition(rad, i, new Vector2f(20, 20));
+                    Vector2f position = CalculateTilePosition(rad, i, new Vector2f(18, 18));
                     created.Position = position;
                     scene.Spawn(created);
                 }
