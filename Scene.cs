@@ -2,7 +2,6 @@
 
 namespace Pacman;
 public delegate void ValueChangedEvent(Scene scene, int value);
-
 public sealed class Scene
 { 
     
@@ -11,12 +10,15 @@ public sealed class Scene
     public readonly AssetManager Assets;
     public event ValueChangedEvent GainScore;
     public event ValueChangedEvent LoseHealth;
+    public event ValueChangedEvent CandyEaten;
     private int scoreGained;
     private int lostHealth;
+    private int candyEaten;
 
     
     public void PublishGainedScore(int amount) => scoreGained += amount;
-    public void PublishLostHealth(int amount) => lostHealth -= amount;
+    public void PublishLostHealth(int amount) => lostHealth += amount;
+    public void PublishCandyEaten(int amount) => candyEaten += amount;
     
     public Scene()
     {
@@ -51,6 +53,12 @@ public sealed class Scene
         {
             LoseHealth?.Invoke(this, lostHealth);
             lostHealth = 0;
+        }
+
+        if (candyEaten != 0)
+        {
+            CandyEaten?.Invoke(this, candyEaten);
+            candyEaten = 0;
         }
         
         for (int i = 0; i < entities.Count;)

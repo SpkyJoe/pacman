@@ -24,6 +24,8 @@ public class GUI : Entity
         currentHealth = maxHealth;
         base.Create(scene);
         sprite.TextureRect = new IntRect(72, 36, 18, 18);
+        scene.LoseHealth += OnLoseHealth;
+        scene.GainScore += OnGainScore;
     }
 
     private void OnLoseHealth(Scene scene, int amount)
@@ -32,7 +34,13 @@ public class GUI : Entity
         if (currentHealth <= 0)
         {
             scene.loader.Reload();
+            scene.LoseHealth -= OnLoseHealth;
         }
+    }
+
+    private void OnGainScore(Scene scene, int score)
+    {
+        currentScore += score;
     }
 
     public override void Render(RenderTarget target)

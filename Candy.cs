@@ -16,4 +16,13 @@ public class Candy : Entity
         sprite.TextureRect = new IntRect(72, 54, 18, 18);
        
     }
+    protected override void CollideWith(Scene scene, Entity e)
+    {
+        if (e is Pacman)
+        {
+            Dead = true;
+            scene.PublishCandyEaten(1);
+           
+        }
+    }
 }
