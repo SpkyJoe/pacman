@@ -7,7 +7,7 @@ public class GUI : Entity
 {
     public GUI() : base("pacman")
     {
-        
+        maxHealth = 3;
     }
 
     private Text scoreText;
@@ -41,6 +41,5 @@ public class GUI : Entity
         scoreText.DisplayedString = $"Score: {currentScore}";
         scoreText.Position = new Vector2f(414 - scoreText.GetGlobalBounds().Width, 396);
         target.Draw(scoreText);
-        base.Render(target);
     }
 }

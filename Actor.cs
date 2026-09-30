@@ -21,10 +21,8 @@ public class Actor : Entity
 
     protected void Reset()
     {
-        wasAligned = false;
         originalSpeed = speed;
         originalPosition = Position;
-        
     }
     protected bool IsAligned =>
         (int)MathF.Floor(Position.X) % 18 == 0 &&

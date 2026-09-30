@@ -14,6 +14,10 @@ public sealed class Scene
     private int scoreGained;
     private int lostHealth;
 
+    
+    public void PublishGainedScore(int amount) => scoreGained += amount;
+    public void PublishLostHealth(int amount) => lostHealth -= amount;
+    
     public Scene()
     {
         
@@ -104,6 +108,4 @@ public sealed class Scene
         return false;
     }
 
-    public void PublishGainedScore(int amount) => scoreGained += amount;
-    public void PublishLostHealth(int amount) => lostHealth += amount;
 }

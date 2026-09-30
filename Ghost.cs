@@ -36,6 +36,7 @@ public sealed class Ghost : Actor
         {
             scene.PublishLostHealth(1);
             Reset();
+            base.CollideWith(scene, e);
         }
     }
 }
