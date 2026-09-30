@@ -33,14 +33,22 @@ public class GUI : Entity
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
+            DontDestroyOnLoad = false;
             scene.loader.Reload();
             scene.LoseHealth -= OnLoseHealth;
         }
+
+       
     }
 
     private void OnGainScore(Scene scene, int score)
     {
         currentScore += score;
+        if (!scene.FindByType<Coin>(out _))
+        {
+            DontDestroyOnLoad = true;
+            scene.loader.Reload();
+        }
     }
 
     public override void Render(RenderTarget target)

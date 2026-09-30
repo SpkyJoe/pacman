@@ -7,6 +7,7 @@ namespace Pacman;
 public sealed class Ghost : Actor
 {
     private float frozenTimer;
+    private float respawnTimer;
     
     public override void Create(Scene scene)
  {
@@ -36,20 +37,34 @@ protected override int PickDirection(Scene scene)
     {
         if (e is Pacman)
         {
-            scene.PublishLostHealth(1);
-            Reset();
+            if (frozenTimer > 0.0f)
+            {
+                Position = originalPosition;
+                moving = false;
+                respawnTimer = 3.0f;
+            }
+            else
+            {
+                scene.PublishLostHealth(1);
+                Reset();
+            }
+
+            
+
         }
     }
 
     private void OnCandyEaten(Scene scene, int candyEaten)
     {
-        
+        frozenTimer = 5.0f;
     }
 
     public override void Update(Scene scene, float deltaTime)
     {
         base.Update(scene, deltaTime);
         frozenTimer = MathF.Max(frozenTimer - deltaTime, 0.0f);
+        respawnTimer = MathF.Max(frozenTimer - deltaTime, 0.0f);
+        if(respawnTimer <= 0.0f && !moving) moving = true;
     }
 
     public override void Render(RenderTarget target)
@@ -57,9 +72,9 @@ protected override int PickDirection(Scene scene)
         if (frozenTimer > 0.0f)
         {
             sprite.Color = Color.Blue;
-            base.Render(target);
+            
         }
-        else 
+        else sprite.Color = Color.White;
         base.Render(target);
     }
 }

@@ -57,7 +57,11 @@ public class SceneLoader
         }
         currentScene = nextScene;
         nextScene = "";
-        scene.Spawn(new GUI());
+        if (!scene.FindByType<GUI>(out _))
+        {
+            scene.Spawn(new GUI());
+        }
+        
         
     }
     

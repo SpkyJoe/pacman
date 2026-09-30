@@ -82,8 +82,12 @@ public sealed class Scene
         for (int i = entities.Count - 1; i >= 0; i--)
         {
             Entity entity = entities[i];
-            entities.RemoveAt(i);
-            entity.Destroy(this);
+            if (!entity.DontDestroyOnLoad)
+            {
+                entities.RemoveAt(i);
+                entity.Destroy(this);
+            }
+            
         }
     }
 
