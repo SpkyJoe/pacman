@@ -10,7 +10,7 @@ public class Actor : Entity
     protected float speed;
     protected int direction;
     protected bool moving;
-    protected Vector2f originalPosition;
+    protected Vector2f originalPosition ;
     protected float originalSpeed;
 
     protected Actor() : base("pacman")
@@ -22,8 +22,9 @@ public class Actor : Entity
     protected void Reset()
     {
         wasAligned = false;
-        speed = originalSpeed;
-        Position = originalPosition;
+        originalSpeed = speed;
+        originalPosition = Position;
+        
     }
     protected bool IsAligned =>
         (int)MathF.Floor(Position.X) % 18 == 0 &&
@@ -51,6 +52,7 @@ public class Actor : Entity
     public override void Create(Scene scene)
     {
         base.Create(scene);
+        Reset();
     }
 
     public override void Update(Scene scene, float deltaTime)
