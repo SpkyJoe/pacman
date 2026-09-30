@@ -18,6 +18,7 @@ public class GUI : Entity
     public override void Create(Scene scene)
     {
         scoreText = new Text();
+        scoreText.Color = Color.Black;
         scoreText.Font = scene.Assets.LoadFont("pixel-font");
         scoreText.DisplayedString = "Score";
         currentHealth = maxHealth;

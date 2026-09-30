@@ -1,15 +1,22 @@
 ﻿using SFML.Graphics;
 
 namespace Pacman;
+public delegate void ValueChangedEvent(Scene scene, int value);
 
-public class Scene
-{
+public sealed class Scene
+{ 
+    
     private List<Entity> entities;
     public readonly SceneLoader loader;
     public readonly AssetManager Assets;
+    public event ValueChangedEvent GainScore;
+    public event ValueChangedEvent LoseHealth;
+    private int scoreGained;
+    private int lostHealth;
 
     public Scene()
     {
+        
         entities = new List<Entity>();
         loader = new SceneLoader();
         Assets = new AssetManager();
@@ -31,6 +38,17 @@ public class Scene
             entity.Update(this, deltaTime);
         }
 
+        if (scoreGained != 0)
+        {
+            GainScore?.Invoke(this, scoreGained);
+            scoreGained = 0;
+        }
+        if (lostHealth != 0)
+        {
+            LoseHealth?.Invoke(this, lostHealth);
+            lostHealth = 0;
+        }
+        
         for (int i = 0; i < entities.Count;)
         {
             Entity entity = entities[i];
@@ -85,4 +103,7 @@ public class Scene
         found = default(T);
         return false;
     }
+
+    public void PublishGainedScore(int amount) => scoreGained += amount;
+    public void PublishLostHealth(int amount) => lostHealth += amount;
 }

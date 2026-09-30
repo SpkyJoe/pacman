@@ -13,7 +13,8 @@ public sealed class Pacman : Actor
         speed = 100.0f;
         base.Create(scene);
         sprite.TextureRect = new IntRect(0, 0, 18, 18);
-      
+        scene.LoseHealth += OnLoseHealth;
+
     }
 
     protected override int PickDirection(Scene scene)
@@ -43,5 +44,16 @@ public sealed class Pacman : Actor
         if (IsFree(scene, dir)) return dir;
         if (!IsFree(scene, direction)) moving = false;
         return direction;
+    }
+
+    private void OnLoseHealth(Scene scene, int amount)
+    {
+        Reset();
+    }
+
+    public override void Destroy(Scene scene)
+    {
+        base.Destroy(scene);
+        scene.LoseHealth -= OnLoseHealth;
     }
 }

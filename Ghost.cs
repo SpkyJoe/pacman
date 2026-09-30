@@ -18,7 +18,7 @@ public sealed class Ghost : Actor
  }
 
     protected override int PickDirection(Scene scene)
- {
+    {
      List<int> validMoves = new List<int>();
      for (int i = 0; i < 4; i++)
      {
@@ -28,5 +28,14 @@ public sealed class Ghost : Actor
      }
      int r = new Random().Next(0, validMoves.Count);
      return validMoves[r];
- }
+     }
+
+    protected override void CollideWith(Scene scene, Entity e)
+    {
+        if (e is Pacman)
+        {
+            scene.PublishLostHealth(1);
+            Reset();
+        }
+    }
 }
