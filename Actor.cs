@@ -21,10 +21,11 @@ public class Actor : Entity
 
     protected void Reset()
     {
-        wasAligned = false;
-        originalSpeed = speed;
-        originalPosition = Position;
         
+        wasAligned = false;
+        speed = originalSpeed;
+        Position = originalPosition;
+
     }
     protected bool IsAligned =>
         (int)MathF.Floor(Position.X) % 18 == 0 &&
@@ -52,6 +53,8 @@ public class Actor : Entity
     public override void Create(Scene scene)
     {
         base.Create(scene);
+        originalPosition = Position;
+        originalSpeed = speed;
         Reset();
     }
 
