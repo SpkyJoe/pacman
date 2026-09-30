@@ -26,6 +26,15 @@ public class GUI : Entity
         sprite.TextureRect = new IntRect(72, 36, 18, 18);
     }
 
+    private void OnLoseHealth(Scene scene, int amount)
+    {
+        currentHealth -= amount;
+        if (currentHealth <= 0)
+        {
+            scene.loader.Reload();
+        }
+    }
+
     public override void Render(RenderTarget target)
     {
         sprite.Position = new Vector2f(36, 396);
