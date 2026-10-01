@@ -69,13 +69,18 @@ public class GUI : Entity
 
     private void CompareScore(int score)
     {
-        string CurrentHigh = (File.ReadAllText("assets/HighScore.txt"));
-        int currentHighScore = int.Parse((CurrentHigh));
-        if (currentHighScore < score)
+        if (!File.Exists("HighScore.txt"))
         {
-            File.WriteAllText("assets/HighScore.txt", $"{score}");
+            File.WriteAllText("HighScore.txt", $"{score}");
         }
-      
-
+        else
+        {
+            string CurrentHigh = (File.ReadAllText("HighScore.txt"));
+            int currentHighScore = int.Parse((CurrentHigh));
+            if (currentHighScore < score)
+            {
+                File.WriteAllText("HighScore.txt", $"{score}");
+            }
+        }
     }
 }
