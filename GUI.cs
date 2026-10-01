@@ -2,6 +2,8 @@
 using SFML.System;
 using System.IO;
 using System.Text;
+using SFML.Window;
+
 namespace Pacman;
 
 public class GUI : Entity
@@ -29,6 +31,8 @@ public class GUI : Entity
         scene.GainScore += OnGainScore;
         highscoreText = new Text();
         highscoreText.Color = Color.Yellow;
+        highscoreText.Font = scene.Assets.LoadFont("pixel-font");
+        highscoreText.DisplayedString = "High Score";
     }
 
     private void OnLoseHealth(Scene scene, int amount)
@@ -38,9 +42,13 @@ public class GUI : Entity
         {
             CompareScore(currentScore);
             DontDestroyOnLoad = false;
-            scene.loader.Reload();
+            scene.GameOver(scene);
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
+            {
+                scene.loader.Reload();
+                
+            }
             scene.LoseHealth -= OnLoseHealth;
-            
         }
     }
 
@@ -68,6 +76,13 @@ public class GUI : Entity
         scoreText.DisplayedString = $"Score: {currentScore}";
         scoreText.Position = new Vector2f(414 - scoreText.GetGlobalBounds().Width, 396);
         target.Draw(scoreText);
+        
+        if (currentHealth <= 0)
+        {
+            highscoreText.DisplayedString = $"High Score: {File.ReadAllText("HighScore.txt")}";
+            highscoreText.Position = new Vector2f(414 - highscoreText.GetGlobalBounds().Width, 396);
+            target.Draw(highscoreText);
+        }
     }
 
     private void CompareScore(int score)

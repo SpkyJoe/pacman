@@ -1,5 +1,7 @@
 ﻿using SFML.Graphics;
 using System.IO;
+using SFML.System;
+using SFML.Window;
 
 namespace Pacman;
 public delegate void ValueChangedEvent(Scene scene, int value);
@@ -121,6 +123,16 @@ public sealed class Scene
         }
         found = default(T);
         return false;
+    }
+    public void GameOver(Scene scene)
+    {
+        foreach (var actor in entities)
+        {
+            if(actor is Pacman || actor is Ghost)
+            {
+                
+            }
+        }
     }
 
 }

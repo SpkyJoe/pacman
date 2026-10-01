@@ -9,7 +9,7 @@ public class Actor : Entity
     private bool wasAligned;
     protected float speed;
     protected int direction;
-    protected bool moving;
+    public bool moving;
     protected Vector2f originalPosition ;
     protected float originalSpeed;
     protected float animationTimer;
