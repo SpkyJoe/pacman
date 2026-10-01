@@ -15,7 +15,6 @@ public sealed class Scene
     private int scoreGained;
     private int lostHealth;
     private int candyEaten;
-    private string? highScore = string.Empty;
    
 
     
@@ -29,7 +28,6 @@ public sealed class Scene
         entities = new List<Entity>();
         loader = new SceneLoader();
         Assets = new AssetManager();
-        highScore = scoreGained.ToString();
         
     }
     
