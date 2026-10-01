@@ -14,6 +14,7 @@ public sealed class Scene
     private int scoreGained;
     private int lostHealth;
     private int candyEaten;
+    
 
     
     public void PublishGainedScore(int amount) => scoreGained += amount;

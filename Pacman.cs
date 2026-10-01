@@ -130,5 +130,9 @@ public sealed class Pacman : Actor
                 break;
         }
         base.Render(target);
+    public override void Update(Scene scene, float deltaTime)
+    {
+        base.Update(scene, deltaTime);
+        
     }
 }

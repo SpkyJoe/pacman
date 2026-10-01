@@ -10,6 +10,7 @@ public sealed class Ghost : Actor
     private float respawnTimer;
     private IntRect frame1 = new IntRect(36, 0, 18, 18);
     private IntRect frame2 = new IntRect(54, 0, 18, 18);
+    private float imunityTimer;
     
     public override void Create(Scene scene)
  {
@@ -45,14 +46,15 @@ protected override int PickDirection(Scene scene)
                 moving = false;
                 respawnTimer = 1.5f;
             }
+            else if (imunityTimer > 0.0f)
+            {
+                scene.PublishLostHealth(0);
+            }
             else
             {
                 scene.PublishLostHealth(1);
-                Reset();
+                imunityTimer = 1.0f;
             }
-
-            
-
         }
     }
 
@@ -66,6 +68,7 @@ protected override int PickDirection(Scene scene)
         base.Update(scene, deltaTime);
         frozenTimer = MathF.Max(frozenTimer - deltaTime, 0.0f);
         respawnTimer = MathF.Max(respawnTimer - deltaTime, 0.0f);
+        imunityTimer = MathF.Max(imunityTimer - deltaTime, 0.0f);
         if(respawnTimer <= 0.0f && !moving) moving = true;
     }
 
