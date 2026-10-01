@@ -8,9 +8,10 @@ public sealed class Ghost : Actor
 {
     private float frozenTimer;
     private float respawnTimer;
+    private float imunityTimer;
     private IntRect frame1 = new IntRect(36, 0, 18, 18);
     private IntRect frame2 = new IntRect(54, 0, 18, 18);
-    private float imunityTimer;
+    
     
     public override void Create(Scene scene)
  {

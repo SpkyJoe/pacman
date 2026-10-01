@@ -69,7 +69,7 @@ public sealed class Pacman : Actor
     }
 
     public override void Render(RenderTarget target)
-    { 
+    {
         switch (direction)
         {
             case 0:
@@ -129,7 +129,10 @@ public sealed class Pacman : Actor
 
                 break;
         }
+
         base.Render(target);
+    }
+
     public override void Update(Scene scene, float deltaTime)
     {
         base.Update(scene, deltaTime);
