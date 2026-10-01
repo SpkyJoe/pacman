@@ -13,7 +13,8 @@ public class GUI : Entity
     private int maxHealth;
     private int currentHealth;
     private int currentScore;
-    StreamWriter sw = new StreamWriter("assets/HighScore.txt", true);
+    
+    StreamWriter sw = new StreamWriter("assets/HighScore.txt", false);
     
     public override void Create(Scene scene)
     {
@@ -49,7 +50,7 @@ public class GUI : Entity
             DontDestroyOnLoad = true;
             scene.loader.Reload();
         }
-       
+       Console.WriteLine($"Score: {currentScore}");
        
     }
 
