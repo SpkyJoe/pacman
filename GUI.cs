@@ -9,12 +9,11 @@ public class GUI : Entity
     {
         maxHealth = 3;
     }
-
     private Text scoreText;
     private int maxHealth;
     private int currentHealth;
     private int currentScore;
-    
+    StreamWriter sw = new StreamWriter("assets/HighScore.txt", true);
     
     public override void Create(Scene scene)
     {
@@ -27,7 +26,6 @@ public class GUI : Entity
         sprite.TextureRect = new IntRect(72, 36, 18, 18);
         scene.LoseHealth += OnLoseHealth;
         scene.GainScore += OnGainScore;
-       
     }
 
     private void OnLoseHealth(Scene scene, int amount)
@@ -35,12 +33,12 @@ public class GUI : Entity
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
+            sw.WriteLine($"{currentScore}");
+            sw.Dispose();
             DontDestroyOnLoad = false;
             scene.loader.Reload();
             scene.LoseHealth -= OnLoseHealth;
         }
-
-       
     }
 
     private void OnGainScore(Scene scene, int score)
@@ -51,6 +49,8 @@ public class GUI : Entity
             DontDestroyOnLoad = true;
             scene.loader.Reload();
         }
+       
+       
     }
 
     public override void Render(RenderTarget target)
@@ -64,7 +64,6 @@ public class GUI : Entity
             base.Render(target);
             sprite.Position += new Vector2f(18, 0);
         }
-
         scoreText.DisplayedString = $"Score: {currentScore}";
         scoreText.Position = new Vector2f(414 - scoreText.GetGlobalBounds().Width, 396);
         target.Draw(scoreText);

@@ -1,4 +1,5 @@
 ﻿using SFML.Graphics;
+using System.IO;
 
 namespace Pacman;
 public delegate void ValueChangedEvent(Scene scene, int value);
@@ -14,7 +15,8 @@ public sealed class Scene
     private int scoreGained;
     private int lostHealth;
     private int candyEaten;
-    
+    private string? highScore = string.Empty;
+    StreamWriter sw = new StreamWriter("HighScores.txt", true);
 
     
     public void PublishGainedScore(int amount) => scoreGained += amount;
@@ -27,6 +29,8 @@ public sealed class Scene
         entities = new List<Entity>();
         loader = new SceneLoader();
         Assets = new AssetManager();
+        highScore = scoreGained.ToString();
+        
     }
     
     public void Spawn(Entity entity)
