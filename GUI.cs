@@ -1,6 +1,7 @@
 ﻿using SFML.Graphics;
 using SFML.System;
 using System.IO;
+using System.Text;
 namespace Pacman;
 
 public class GUI : Entity
@@ -13,9 +14,7 @@ public class GUI : Entity
     private int maxHealth;
     private int currentHealth;
     private int currentScore;
-    
-    StreamWriter sw = new StreamWriter("assets/HighScore.txt", false);
-    
+   
     public override void Create(Scene scene)
     {
         scoreText = new Text();
@@ -34,11 +33,11 @@ public class GUI : Entity
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
-            sw.WriteLine($"{currentScore}");
-            sw.Dispose();
+            CompareScore(currentScore);
             DontDestroyOnLoad = false;
             scene.loader.Reload();
             scene.LoseHealth -= OnLoseHealth;
+            
         }
     }
 
@@ -50,8 +49,6 @@ public class GUI : Entity
             DontDestroyOnLoad = true;
             scene.loader.Reload();
         }
-       Console.WriteLine($"Score: {currentScore}");
-       
     }
 
     public override void Render(RenderTarget target)
@@ -68,5 +65,17 @@ public class GUI : Entity
         scoreText.DisplayedString = $"Score: {currentScore}";
         scoreText.Position = new Vector2f(414 - scoreText.GetGlobalBounds().Width, 396);
         target.Draw(scoreText);
+    }
+
+    private void CompareScore(int score)
+    {
+        string CurrentHigh = (File.ReadAllText("assets/HighScore.txt"));
+        int currentHighScore = int.Parse((CurrentHigh));
+        if (currentHighScore < score)
+        {
+            File.WriteAllText("assets/HighScore.txt", $"{score}");
+        }
+      
+
     }
 }

@@ -16,7 +16,7 @@ public sealed class Scene
     private int lostHealth;
     private int candyEaten;
     private string? highScore = string.Empty;
-    StreamWriter sw = new StreamWriter("HighScores.txt", true);
+   
 
     
     public void PublishGainedScore(int amount) => scoreGained += amount;
