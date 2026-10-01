@@ -1,6 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.System;
-
+using System.IO;
 namespace Pacman;
 
 public class GUI : Entity
@@ -15,6 +15,7 @@ public class GUI : Entity
     private int currentHealth;
     private int currentScore;
     
+    
     public override void Create(Scene scene)
     {
         scoreText = new Text();
@@ -26,6 +27,7 @@ public class GUI : Entity
         sprite.TextureRect = new IntRect(72, 36, 18, 18);
         scene.LoseHealth += OnLoseHealth;
         scene.GainScore += OnGainScore;
+       
     }
 
     private void OnLoseHealth(Scene scene, int amount)

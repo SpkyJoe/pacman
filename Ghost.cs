@@ -54,7 +54,7 @@ protected override int PickDirection(Scene scene)
             else
             {
                 scene.PublishLostHealth(1);
-                imunityTimer = 1.0f;
+                imunityTimer = 2.0f;
             }
         }
     }

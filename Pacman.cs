@@ -17,7 +17,7 @@ public sealed class Pacman : Actor
     private IntRect moveUp2 = new IntRect(18, 18, 18, 18);
     private IntRect moveLeft2 = new IntRect(18, 36, 18, 18);
     private IntRect moveDown2 = new IntRect(18, 54, 18, 18);
-    
+    private float stoptimer;
     
     public override void Create(Scene scene)
     {
@@ -59,6 +59,7 @@ public sealed class Pacman : Actor
 
     private void OnLoseHealth(Scene scene, int amount)
     {
+        stoptimer = 1.0f;
         Reset();
     }
 
@@ -135,7 +136,16 @@ public sealed class Pacman : Actor
 
     public override void Update(Scene scene, float deltaTime)
     {
+        stoptimer = MathF.Max(stoptimer - deltaTime, 0.0f);
         base.Update(scene, deltaTime);
-        
+        if (stoptimer > 0.0f)
+        {
+            speed = 0.0f;
+        }
+        else if (stoptimer <= 0.0f && speed != 100.0f)
+        {
+            speed = 100.0f;
+        }
+
     }
 }
