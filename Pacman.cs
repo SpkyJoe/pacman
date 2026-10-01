@@ -7,12 +7,23 @@ namespace Pacman;
 
 public sealed class Pacman : Actor
 {
+
+    private IntRect moveRight = new IntRect(0, 0, 18, 18);
+    private IntRect moveUp = new IntRect(0, 18, 18, 18);
+    private IntRect moveLeft = new IntRect(0, 36, 18, 18);
+    private IntRect moveDown = new IntRect(0, 54, 18, 18);
+    private IntRect moveStill = new IntRect(36, 54, 18, 18);
+    private IntRect moveRight2 = new IntRect(18, 0, 18, 18);
+    private IntRect moveUp2 = new IntRect(18, 18, 18, 18);
+    private IntRect moveLeft2 = new IntRect(18, 36, 18, 18);
+    private IntRect moveDown2 = new IntRect(18, 54, 18, 18);
+    
     
     public override void Create(Scene scene)
     {
         speed = 100.0f;
         base.Create(scene);
-        sprite.TextureRect = new IntRect(0, 0, 18, 18);
+        sprite.TextureRect = moveStill;
         scene.LoseHealth += OnLoseHealth;
 
     }
@@ -55,5 +66,69 @@ public sealed class Pacman : Actor
     {
         base.Destroy(scene);
         scene.LoseHealth -= OnLoseHealth;
+    }
+
+    public override void Render(RenderTarget target)
+    { 
+        switch (direction)
+        {
+            case 0:
+                if (sprite.TextureRect != moveRight && animateClock.ElapsedTime.AsSeconds() > animationTimer + 0.5f)
+                {
+                    animateClock.Restart();
+                    animationTimer = animateClock.ElapsedTime.AsSeconds();
+                    sprite.TextureRect = moveRight;
+                }
+
+                else if (animateClock.ElapsedTime.AsSeconds() > animationTimer + 0.25f &&
+                         sprite.TextureRect != moveRight2)
+                {
+                    sprite.TextureRect = moveRight2;
+                }
+
+                break;
+            case 1:
+                if (sprite.TextureRect != moveUp && animateClock.ElapsedTime.AsSeconds() > animationTimer + 0.5f)
+                {
+                    animateClock.Restart();
+                    animationTimer = animateClock.ElapsedTime.AsSeconds();
+                    sprite.TextureRect = moveUp;
+                }
+                else if (animateClock.ElapsedTime.AsSeconds() > animationTimer + 0.25f && sprite.TextureRect != moveUp2)
+                {
+                    sprite.TextureRect = moveUp2;
+                }
+
+                break;
+            case 2:
+                if (sprite.TextureRect != moveLeft && animateClock.ElapsedTime.AsSeconds() > animationTimer + 0.5f)
+                {
+                    animateClock.Restart();
+                    animationTimer = animateClock.ElapsedTime.AsSeconds();
+                    sprite.TextureRect = moveLeft;
+                }
+                else if (animateClock.ElapsedTime.AsSeconds() > animationTimer + 0.25f &&
+                         sprite.TextureRect != moveLeft2)
+                {
+                    sprite.TextureRect = moveLeft2;
+                }
+
+                break;
+            case 3:
+                if (sprite.TextureRect != moveDown && animateClock.ElapsedTime.AsSeconds() > animationTimer + 0.5f)
+                {
+                    animateClock.Restart();
+                    animationTimer = animateClock.ElapsedTime.AsSeconds();
+                    sprite.TextureRect = moveDown;
+                }
+                else if (animateClock.ElapsedTime.AsSeconds() > animationTimer + 0.25f &&
+                         sprite.TextureRect != moveLeft2)
+                {
+                    sprite.TextureRect = moveDown2;
+                }
+
+                break;
+        }
+        base.Render(target);
     }
 }

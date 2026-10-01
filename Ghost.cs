@@ -8,6 +8,8 @@ public sealed class Ghost : Actor
 {
     private float frozenTimer;
     private float respawnTimer;
+    private IntRect frame1 = new IntRect(36, 0, 18, 18);
+    private IntRect frame2 = new IntRect(54, 0, 18, 18);
     
     public override void Create(Scene scene)
  {
@@ -15,7 +17,7 @@ public sealed class Ghost : Actor
   speed = 100.0f;
   moving = true;
   base.Create(scene);
-  sprite.TextureRect = new IntRect(36, 0, 18, 18);
+  sprite.TextureRect = frame1;
   scene.CandyEaten += OnCandyEaten;
 
  }
@@ -41,7 +43,7 @@ protected override int PickDirection(Scene scene)
             {
                 Position = originalPosition;
                 moving = false;
-                respawnTimer = 3.0f;
+                respawnTimer = 1.5f;
             }
             else
             {
@@ -63,12 +65,24 @@ protected override int PickDirection(Scene scene)
     {
         base.Update(scene, deltaTime);
         frozenTimer = MathF.Max(frozenTimer - deltaTime, 0.0f);
-        respawnTimer = MathF.Max(frozenTimer - deltaTime, 0.0f);
+        respawnTimer = MathF.Max(respawnTimer - deltaTime, 0.0f);
         if(respawnTimer <= 0.0f && !moving) moving = true;
     }
 
     public override void Render(RenderTarget target)
     {
+        if (sprite.TextureRect != frame1 && animateClock.ElapsedTime.AsSeconds() > animationTimer + 0.4f)
+        {
+            animateClock.Restart();
+            animationTimer = animateClock.ElapsedTime.AsSeconds();
+            sprite.TextureRect = frame1;
+        }
+        else if (animateClock.ElapsedTime.AsSeconds() > animationTimer + 0.2f &&
+                 sprite.TextureRect != frame2)
+        {
+            sprite.TextureRect = frame2;
+        }
+        
         if (frozenTimer > 0.0f)
         {
             sprite.Color = Color.Blue;

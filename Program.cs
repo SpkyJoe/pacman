@@ -28,7 +28,7 @@ namespace Pacman
                     deltatime = MathF.Min(deltatime, 0.1f);
                     if (deltatime > 0.1f) deltatime = 0.1f;
                     scene.UpdateAll(deltatime);
-                    window.Clear(new Color(223, 246, 245));
+                    window.Clear(new Color(30, 50, 50));
                     scene.RenderAll(window);
                     window.Display();
                 }

@@ -12,6 +12,8 @@ public class Actor : Entity
     protected bool moving;
     protected Vector2f originalPosition ;
     protected float originalSpeed;
+    protected float animationTimer;
+    protected Clock animateClock = new Clock();
 
     protected Actor() : base("pacman")
     {
