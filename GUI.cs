@@ -81,7 +81,6 @@ public class GUI : Entity
             restartText.DisplayedString = "Press [Spacebar]\n" +
                                           "to Restart";
             restartText.Position = new Vector2f(207 - scoreText.GetGlobalBounds().Width / 2, 225 - scoreText.GetGlobalBounds().Height / 2);
-            
             target.Draw(restartText);
         }
         else

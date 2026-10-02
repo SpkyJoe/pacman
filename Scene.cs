@@ -88,6 +88,14 @@ public sealed class Scene
         {
             entities[i].Render(target);
         }
+
+        if (gameOverState)
+        {
+            foreach (Entity entity in entities)
+            {
+                if (entity is GUI) entity.Render(target);
+            }
+        }
     }
 
     public void Clear()

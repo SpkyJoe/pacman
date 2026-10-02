@@ -33,7 +33,7 @@ public class SceneLoader
     public void HandleSceneLoad(Scene scene)
     {
         string file = $"assets/{nextScene}.txt";
-        if (nextScene == "" || scene.gameOverState) return;
+        if (nextScene == "") return;
         scene.Clear();
         int rad = -1;
         foreach (var line in File.ReadLines(file, Encoding.UTF8))
@@ -60,8 +60,6 @@ public class SceneLoader
         {
             scene.Spawn(new GUI());
         }
-        
-        
     }
     
     public void Load(string scene) => nextScene = scene;
