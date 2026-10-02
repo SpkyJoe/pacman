@@ -2,8 +2,9 @@
 using SFML.System;
 using System.IO;
 using System.Text;
-namespace Pacman;
+using SFML.Window;
 
+namespace Pacman;
 public class GUI : Entity
 {
     public GUI() : base("pacman")
@@ -33,6 +34,7 @@ public class GUI : Entity
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
+            scene.gameOverState = true;
             CompareScore(currentScore);
             DontDestroyOnLoad = false;
             scene.loader.Reload();
@@ -67,20 +69,20 @@ public class GUI : Entity
         target.Draw(scoreText);
     }
 
-    private void CompareScore(int score)
+    private int CompareScore(int score)
     {
         if (!File.Exists("HighScore.txt"))
         {
             File.WriteAllText("HighScore.txt", $"{score}");
+            return score;
         }
-        else
+        string CurrentHigh = (File.ReadAllText("HighScore.txt"));
+        int currentHighScore = int.Parse((CurrentHigh));
+        if (currentHighScore < score)
         {
-            string CurrentHigh = (File.ReadAllText("HighScore.txt"));
-            int currentHighScore = int.Parse((CurrentHigh));
-            if (currentHighScore < score)
-            {
-                File.WriteAllText("HighScore.txt", $"{score}");
-            }
+            File.WriteAllText("HighScore.txt", $"{score}");
+            return score;
         }
+        return currentHighScore;
     }
 }

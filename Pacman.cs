@@ -136,15 +136,23 @@ public sealed class Pacman : Actor
 
     public override void Update(Scene scene, float deltaTime)
     {
-        stoptimer = MathF.Max(stoptimer - deltaTime, 0.0f);
-        base.Update(scene, deltaTime);
-        if (stoptimer > 0.0f)
+        if (!scene.gameOverState)
         {
-            speed = 0.0f;
+            stoptimer = MathF.Max(stoptimer - deltaTime, 0.0f);
+            base.Update(scene, deltaTime);
+            if (stoptimer > 0.0f)
+            {
+                speed = 0.0f;
+            }
+            else if (stoptimer <= 0.0f && speed != 100.0f)
+            {
+                speed = 100.0f;
+            }
         }
-        else if (stoptimer <= 0.0f && speed != 100.0f)
+        else
         {
-            speed = 100.0f;
+            base.Update(scene, deltaTime);
+            moving = false;
         }
 
     }

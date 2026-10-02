@@ -10,7 +10,7 @@ public class Actor : Entity
     protected float speed;
     protected int direction;
     protected bool moving;
-    protected Vector2f originalPosition ;
+    protected Vector2f originalPosition;
     protected float originalSpeed;
     protected float animationTimer;
     protected Clock animateClock = new Clock();

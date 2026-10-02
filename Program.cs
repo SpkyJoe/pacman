@@ -19,14 +19,13 @@ namespace Pacman
             {
                 window.Closed += (o, e) => window.Close();
                 window.SetView(new View(new FloatRect(18, 0, 414, 450)));
-                //TODO: initialize
                 Clock clock = new Clock();
                 while (window.IsOpen)
                 {
-                    window.DispatchEvents();
                     float deltatime = clock.Restart().AsSeconds();
                     deltatime = MathF.Min(deltatime, 0.1f);
                     if (deltatime > 0.1f) deltatime = 0.1f;
+                    window.DispatchEvents();
                     scene.UpdateAll(deltatime);
                     window.Clear(new Color(30, 50, 50));
                     scene.RenderAll(window);

@@ -66,11 +66,17 @@ protected override int PickDirection(Scene scene)
 
     public override void Update(Scene scene, float deltaTime)
     {
+        if (scene.gameOverState)
+        {
+            moving = false;
+            base.Update(scene, deltaTime);
+            return;
+        }
         base.Update(scene, deltaTime);
         frozenTimer = MathF.Max(frozenTimer - deltaTime, 0.0f);
         respawnTimer = MathF.Max(respawnTimer - deltaTime, 0.0f);
         imunityTimer = MathF.Max(imunityTimer - deltaTime, 0.0f);
-        if(respawnTimer <= 0.0f && !moving) moving = true;
+        if (respawnTimer <= 0.0f && !moving) moving = true;
     }
 
     public override void Render(RenderTarget target)

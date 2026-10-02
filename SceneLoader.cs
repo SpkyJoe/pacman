@@ -33,7 +33,6 @@ public class SceneLoader
     public void HandleSceneLoad(Scene scene)
     {
         string file = $"assets/{nextScene}.txt";
-        
         if (nextScene == "") return;
         scene.Clear();
         int rad = -1;

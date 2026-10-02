@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using System.IO;
+using SFML.Window;
 
 namespace Pacman;
 public delegate void ValueChangedEvent(Scene scene, int value);
@@ -15,7 +16,7 @@ public sealed class Scene
     private int scoreGained;
     private int lostHealth;
     private int candyEaten;
-    private string? highScore = string.Empty;
+    public bool gameOverState;
    
 
     
@@ -29,8 +30,8 @@ public sealed class Scene
         entities = new List<Entity>();
         loader = new SceneLoader();
         Assets = new AssetManager();
-        highScore = scoreGained.ToString();
-        
+        gameOverState = true;
+
     }
     
     public void Spawn(Entity entity)
@@ -41,7 +42,14 @@ public sealed class Scene
 
     public void UpdateAll(float deltaTime)
     {
-        loader.HandleSceneLoad(this);
+        
+        
+        if (gameOverState && Keyboard.IsKeyPressed(Keyboard.Key.Space))
+        {
+            gameOverState = false;
+            loader.HandleSceneLoad(this);
+        }
+        else if (gameOverState) return;
         
         for (int i = entities.Count -1; i >= 0; i--)
         {
@@ -106,6 +114,16 @@ public sealed class Scene
             if (entity.Bounds.Intersects(bounds))
             {
                 yield return entity;
+            }
+        }
+    }
+
+    public void GameOver(Scene scene)
+    {
+        foreach (var entity in entities)
+        {
+            if (entity is Actor)
+            {
             }
         }
     }
