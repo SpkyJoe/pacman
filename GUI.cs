@@ -18,22 +18,24 @@ public class GUI : Entity
     private int currentHealth;
     private int currentScore;
     private Text highscoreText;
+    private Text restartText;
    
     public override void Create(Scene scene)
     {
         scoreText = new Text();
         scoreText.Color = Color.Black;
         scoreText.Font = scene.Assets.LoadFont("pixel-font");
-        scoreText.DisplayedString = "Score";
         currentHealth = maxHealth;
         base.Create(scene);
         sprite.TextureRect = new IntRect(72, 36, 18, 18);
         scene.LoseHealth += OnLoseHealth;
         scene.GainScore += OnGainScore;
         highscoreText = new Text();
-        highscoreText.Color = Color.Yellow;
+        highscoreText.Color = Color.White;
         highscoreText.Font = scene.Assets.LoadFont("pixel-font");
-        highscoreText.DisplayedString = "High Score";
+        restartText = new Text();
+        restartText.Color = Color.White;
+        restartText.Font = scene.Assets.LoadFont("pixel-font");
     }
 
     private void OnLoseHealth(Scene scene, int amount)
@@ -45,11 +47,6 @@ public class GUI : Entity
             CompareScore(currentScore);
             DontDestroyOnLoad = false;
             scene.GameOver(scene);
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
-            {
-                scene.loader.Reload();
-                
-            }
             scene.LoseHealth -= OnLoseHealth;
         }
     }
@@ -75,15 +72,23 @@ public class GUI : Entity
             base.Render(target);
             sprite.Position += new Vector2f(18, 0);
         }
-        scoreText.DisplayedString = $"Score: {currentScore}";
-        scoreText.Position = new Vector2f(414 - scoreText.GetGlobalBounds().Width, 396);
-        target.Draw(scoreText);
-        
         if (currentHealth <= 0)
         {
+            
             highscoreText.DisplayedString = $"High Score: {File.ReadAllText("HighScore.txt")}";
             highscoreText.Position = new Vector2f(414 - highscoreText.GetGlobalBounds().Width, 396);
             target.Draw(highscoreText);
+            restartText.DisplayedString = "Press [Spacebar]\n" +
+                                          "to Restart";
+            restartText.Position = new Vector2f(207 - scoreText.GetGlobalBounds().Width / 2, 225 - scoreText.GetGlobalBounds().Height / 2);
+            
+            target.Draw(restartText);
+        }
+        else
+        {
+            scoreText.DisplayedString = $"Score: {currentScore}";
+            scoreText.Position = new Vector2f(414 - scoreText.GetGlobalBounds().Width, 396);
+            target.Draw(scoreText);
         }
     }
 

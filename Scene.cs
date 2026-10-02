@@ -46,12 +46,11 @@ public sealed class Scene
 
     public void UpdateAll(float deltaTime)
     {
-        
-        
+        loader.HandleSceneLoad(this);
         if (gameOverState && Keyboard.IsKeyPressed(Keyboard.Key.Space))
         {
             gameOverState = false;
-            loader.HandleSceneLoad(this);
+            loader.Reload();
         }
         else if (gameOverState) return;
         
@@ -60,7 +59,6 @@ public sealed class Scene
             Entity entity = entities[i];
             entity.Update(this, deltaTime);
         }
-
         if (scoreGained != 0)
         {
             GainScore?.Invoke(this, scoreGained);
@@ -71,13 +69,11 @@ public sealed class Scene
             LoseHealth?.Invoke(this, lostHealth);
             lostHealth = 0;
         }
-
         if (candyEaten != 0)
         {
             CandyEaten?.Invoke(this, candyEaten);
             candyEaten = 0;
         }
-        
         for (int i = 0; i < entities.Count;)
         {
             Entity entity = entities[i];
