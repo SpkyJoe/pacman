@@ -10,6 +10,7 @@ public class Entity
     protected readonly Sprite sprite;
     public bool Dead;
     public bool DontDestroyOnLoad;
+    
 
     protected Entity(string textureName)
     {

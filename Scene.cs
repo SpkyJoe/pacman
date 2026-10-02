@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using System.IO;
+using SFML.System;
 using SFML.Window;
 
 namespace Pacman;
@@ -16,7 +17,9 @@ public sealed class Scene
     private int scoreGained;
     private int lostHealth;
     private int candyEaten;
+
     public bool gameOverState;
+
    
 
     
@@ -30,8 +33,9 @@ public sealed class Scene
         entities = new List<Entity>();
         loader = new SceneLoader();
         Assets = new AssetManager();
-        gameOverState = true;
 
+        gameOverState = true;
+        
     }
     
     public void Spawn(Entity entity)
@@ -117,16 +121,7 @@ public sealed class Scene
             }
         }
     }
-
-    public void GameOver(Scene scene)
-    {
-        foreach (var entity in entities)
-        {
-            if (entity is Actor)
-            {
-            }
-        }
-    }
+    
     
     public bool FindByType<T>(out T found) where T : Entity
     {
@@ -141,6 +136,16 @@ public sealed class Scene
         }
         found = default(T);
         return false;
+    }
+    public void GameOver(Scene scene)
+    {
+        foreach (var actor in entities)
+        {
+            if(actor is Pacman || actor is Ghost)
+            {
+                
+            }
+        }
     }
 
 }
