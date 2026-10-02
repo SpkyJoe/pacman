@@ -34,7 +34,7 @@ public sealed class Scene
         loader = new SceneLoader();
         Assets = new AssetManager();
 
-        gameOverState = true;
+        gameOverState = false;
         
     }
     
@@ -133,15 +133,4 @@ public sealed class Scene
         found = default(T);
         return false;
     }
-    public void GameOver(Scene scene)
-    {
-        foreach (var actor in entities)
-        {
-            if(actor is Pacman || actor is Ghost)
-            {
-                
-            }
-        }
-    }
-
 }

@@ -46,7 +46,7 @@ public class GUI : Entity
             scene.gameOverState = true;
             CompareScore(currentScore);
             DontDestroyOnLoad = false;
-            scene.GameOver(scene);
+           
             scene.LoseHealth -= OnLoseHealth;
         }
     }
