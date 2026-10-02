@@ -142,10 +142,12 @@ public sealed class Pacman : Actor
             base.Update(scene, deltaTime);
             if (stoptimer > 0.0f)
             {
+                sprite.Color = new Color(255, 255, 255, 50);
                 speed = 0.0f;
             }
             else if (stoptimer <= 0.0f && speed != 100.0f)
             {
+                sprite.Color = Color.White;
                 speed = 100.0f;
             }
         }
